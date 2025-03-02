@@ -18,10 +18,15 @@ Welcome to the Obsidian AI Plugin! This plugin integrates AI capabilities into y
 
 2. Invoke the AI function to ask a question.
 
-![](images/context_menu.png)
+<p align="left">
+  <img src="images/context_menu.png" width="25%">
+</p>
+
 3. Receive an answer from ChatGPT and choose to replace the highlighted text with this new content.
 
-![](images/example.png)
+<p align="left">
+  <img src="images/example.png" width="25%">
+</p>
 
 ## Requirements
 
@@ -31,7 +36,7 @@ Welcome to the Obsidian AI Plugin! This plugin integrates AI capabilities into y
 
 ## Feedback and Support
 
-For issues or suggestions, please visit the [GitHub repository](https://github.com/Dref360) or contact support at support@your-email.com.
+For issues or suggestions, please visit the [GitHub repository](https://github.com/Dref360/obsidian-ai-companion).
 
 ---
 

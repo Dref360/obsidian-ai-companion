@@ -7,16 +7,24 @@ Welcome to the Obsidian AI Plugin! This plugin integrates AI capabilities into y
 - **AI-Powered Q&A**: Select any sentence in your Obsidian note and ask a question using ChatGPT.
 - **Text Replacement**: Get AI-generated answers and replace the selected text with these insights effortlessly.
 
-## Installation
+## Local Installation
+
+1. Clone the repo in your vault `.obsidian/plugins/`
+2. Build the project with `npm run build`
+3. Activate the Plugin in Obsidian
+
+## Installation throught the marketplace (In Progress)
 
 1. Download the plugin from the Obsidian Community Plugins marketplace.
 2. Enable the plugin within the Obsidian settings under the "Community Plugins" section.
 
 ## Usage
 
-1. Highlight a sentence in your note.
+1. In Settings > AI Writing Companion set your API Key from OpenAI
 
-2. Invoke the AI function to ask a question.
+2. Highlight a sentence in your note.
+
+3. Invoke the AI function to ask a question.
 
 <p align="left">
   <img src="images/context_menu.png" width="25%">

@@ -228,13 +228,50 @@ class TextReplacerModal extends Modal {
 			.warning-text {
 			font-weight: 500;
 			}
+			.spinner-container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				padding: 15px;
+			}
+			
+			.spinner {
+				width: 30px;
+				height: 30px;
+				border: 3px solid var(--background-modifier-border);
+				border-top: 3px solid var(--interactive-accent);
+				border-radius: 50%;
+				animation: spin 1s linear infinite;
+				margin-bottom: 10px;
+			}
+			
+			.spinner-text {
+				color: var(--text-muted);
+				font-size: 14px;
+			}
+			
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
 		`;
 		document.head.appendChild(styleEl);
+	}
+
+	private showSpinner() {
+		this.resultEl.innerHTML = `
+		  <div class="spinner-container">
+			<div class="spinner"></div>
+			<div class="spinner-text">Generating response...</div>
+		  </div>
+		`;
 	}
 
 	// Generate a response based on the input
 	private async generateResponse() {
 		const question = this.inputEl.value.trim();
+		this.showSpinner();
 
 		if (!question) {
 			this.resultEl.innerHTML = "<em>Please enter a question first.</em>";

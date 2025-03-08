@@ -1,7 +1,7 @@
 {
 	"name": "ai-writing-companion",
 	"version": "1.0.0",
-	"description": "Plugin for AI Support in Obsidian (https://obsidian.md)",
+	"description": "Use AI to help you in your Obsidian work.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

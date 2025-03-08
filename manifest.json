@@ -3,9 +3,8 @@
 	"name": "AI Writing Companion",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Use LLMs to edit your text.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Use AI to help you in your Obsidian work.",
+	"author": "Dref360",
+	"authorUrl": "https://dref360.github.io",
 	"isDesktopOnly": false
 }

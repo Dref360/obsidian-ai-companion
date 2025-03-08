@@ -1,6 +1,7 @@
 import {
 	App,
 	Command,
+	Component,
 	Editor,
 	MarkdownRenderer,
 	MarkdownView,
@@ -307,7 +308,7 @@ class TextReplacerModal extends Modal {
 			markdownContent,
 			markdownWrapper,
 			".", // Source path - using '.' as a placeholder
-			null // Component - not needed for this usage
+			new Component() // Component - not needed for this usage
 		);
 	}
 

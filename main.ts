@@ -161,11 +161,20 @@ class TextReplacerModal extends Modal {
 
 		// Apply button
 		const applyButton = buttonContainer.createEl("button", {
-			text: "Apply Response",
+			text: "Append",
 			cls: "mod-cta",
 		});
 		applyButton.addEventListener("click", () => {
-			this.applyResponse();
+			this.applyResponse("append");
+		});
+
+		// Apply button
+		const applyReplaceButton = buttonContainer.createEl("button", {
+			text: "Replace",
+			cls: "mod-cta",
+		});
+		applyReplaceButton.addEventListener("click", () => {
+			this.applyResponse("replace");
 		});
 
 		// Cancel button
@@ -346,7 +355,7 @@ class TextReplacerModal extends Modal {
 	}
 
 	// Apply the response to the editor
-	private applyResponse() {
+	private applyResponse(mode: "replace" | "append") {
 		if (
 			this.resultEl.innerHTML ===
 				"<em>Response will appear here...</em>" ||
@@ -359,9 +368,12 @@ class TextReplacerModal extends Modal {
 		}
 
 		// Get the raw markdown from our internal storage rather than the HTML content
-		const markdownContent = this.lastGeneratedMarkdown || "";
+		let markdownContent = this.lastGeneratedMarkdown || "";
 
 		if (markdownContent) {
+			if (mode == "append") {
+				markdownContent = `${this.originalText}\n ${markdownContent}`;
+			}
 			this.editor.replaceSelection(markdownContent);
 			this.close();
 		}

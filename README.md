@@ -30,7 +30,7 @@ Welcome to the Obsidian AI Plugin! This plugin integrates AI capabilities into y
   <img src="images/context_menu.png" width="25%">
 </p>
 
-3. Receive an answer from ChatGPT and choose to replace the highlighted text with this new content.
+3. Receive an answer from ChatGPT and choose to replace or append the highlighted text with this new content.
 
 <p align="left">
   <img src="images/example.png" width="25%">

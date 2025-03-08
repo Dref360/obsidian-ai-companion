@@ -2,6 +2,7 @@ import {
 	App,
 	Command,
 	Editor,
+	MarkdownRenderer,
 	MarkdownView,
 	Modal,
 	Plugin,
@@ -89,12 +90,14 @@ class TextReplacerModal extends Modal {
 	private inputEl: HTMLTextAreaElement;
 	private resultEl: HTMLDivElement;
 	private originalText: string;
+	private lastGeneratedMarkdown: string;
 
 	constructor(app: App, editor: Editor, settings: TextReplacerSettings) {
 		super(app);
 		this.editor = editor;
 		this.settings = settings;
 		this.originalText = editor.getSelection();
+		this.lastGeneratedMarkdown = "";
 	}
 
 	onOpen() {
@@ -255,6 +258,19 @@ class TextReplacerModal extends Modal {
 				0% { transform: rotate(0deg); }
 				100% { transform: rotate(360deg); }
 			}
+			.markdown-rendered {
+			padding: 0;
+			max-height: 300px;
+			overflow-y: auto;
+			}
+			
+			.markdown-rendered p:first-child {
+			margin-top: 0;
+			}
+			
+			.markdown-rendered p:last-child {
+			margin-bottom: 0;
+			}
 		`;
 		document.head.appendChild(styleEl);
 	}
@@ -268,6 +284,24 @@ class TextReplacerModal extends Modal {
 		`;
 	}
 
+	private async displayRenderedMarkdown(markdownContent: string) {
+		// Clear previous content
+		this.resultEl.empty();
+
+		// Create a wrapper div
+		const markdownWrapper = this.resultEl.createDiv({
+			cls: "markdown-rendered",
+		});
+
+		// Use MarkdownRenderer to render the content
+		await MarkdownRenderer.renderMarkdown(
+			markdownContent,
+			markdownWrapper,
+			".", // Source path - using '.' as a placeholder
+			null // Component - not needed for this usage
+		);
+	}
+
 	// Generate a response based on the input
 	private async generateResponse() {
 		const question = this.inputEl.value.trim();
@@ -278,9 +312,18 @@ class TextReplacerModal extends Modal {
 			return;
 		}
 
-		// Simple example response generator - in a real plugin you might use an API or other logic
-		const response = await this.processQuestion(question);
-		this.resultEl.innerHTML = response;
+		try {
+			// Process the question
+			const response = await this.processQuestion(question);
+			this.lastGeneratedMarkdown = response;
+
+			// Render the markdown properly
+			await this.displayRenderedMarkdown(response);
+		} catch (error) {
+			this.resultEl.innerHTML = `<em class="error">Error: ${
+				error.message || "Failed to generate response"
+			}</em>`;
+		}
 	}
 
 	private async processQuestion(question: string): Promise<string> {
@@ -304,17 +347,23 @@ class TextReplacerModal extends Modal {
 
 	// Apply the response to the editor
 	private applyResponse() {
-		const response = this.resultEl.innerHTML;
 		if (
-			response &&
-			response !== "<em>Response will appear here...</em>" &&
-			response !== "<em>Please enter a question first.</em>"
+			this.resultEl.innerHTML ===
+				"<em>Response will appear here...</em>" ||
+			this.resultEl.innerHTML ===
+				"<em>Please enter a question first.</em>"
 		) {
-			this.editor.replaceSelection(this.resultEl.textContent || "");
-			this.close();
-		} else {
 			this.resultEl.innerHTML =
 				"<em>Please generate a response first.</em>";
+			return;
+		}
+
+		// Get the raw markdown from our internal storage rather than the HTML content
+		const markdownContent = this.lastGeneratedMarkdown || "";
+
+		if (markdownContent) {
+			this.editor.replaceSelection(markdownContent);
+			this.close();
 		}
 	}
 

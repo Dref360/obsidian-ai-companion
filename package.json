@@ -1,6 +1,6 @@
 {
 	"name": "ai-writing-companion",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Use AI to help you in your Obsidian work.",
 	"main": "main.js",
 	"scripts": {

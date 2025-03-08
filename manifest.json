@@ -1,7 +1,7 @@
 {
 	"id": "ai-writing-companion",
 	"name": "AI Writing Companion",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Use AI to help you in your Obsidian work.",
 	"author": "Dref360",
